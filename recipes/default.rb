@@ -31,6 +31,7 @@ package node['vim']['package']
 execute "set default system editor" do
   command "/usr/sbin/update-alternatives --set editor #{node['vim']['binary']}"
   user "root"
+  not_if "/usr/sbin/update-alternatives --query editor | /bin/grep -q '^Value: #{node['vim']['binary']}$'"
 end
 
 template "/etc/vim/vimrc.local" do
