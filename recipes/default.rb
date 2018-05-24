@@ -29,21 +29,22 @@
 package node['vim']['package']
 
 update_alternatives_bin = value_for_platform(
-  "ubuntu" => {
-    "14.04" => "/usr/bin/update-alternatives"
+  'ubuntu' => {
+    '14.04' => '/usr/bin/update-alternatives',
+    '18.04' => '/usr/bin/update-alternatives',
   },
-  "default" => "/usr/sbin/update-alternatives"
+  'default' => '/usr/sbin/update-alternatives'
 )
 
-execute "set default system editor" do
+execute 'set default system editor' do
   command "#{update_alternatives_bin} --set editor #{node['vim']['binary']}"
-  user "root"
+  user 'root'
   not_if "#{update_alternatives_bin} --query editor | /bin/grep -q '^Value: #{node['vim']['binary']}$'"
 end
 
-template "/etc/vim/vimrc.local" do
-  source "vimrc_local.erb"
+template '/etc/vim/vimrc.local' do
+  source 'vimrc_local.erb'
   mode 0644
-  owner "root"
-  group "root"
+  owner 'root'
+  group 'root'
 end
