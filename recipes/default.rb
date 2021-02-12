@@ -28,13 +28,7 @@
 
 package node['vim']['package']
 
-update_alternatives_bin = value_for_platform(
-  'ubuntu' => {
-    '14.04' => '/usr/bin/update-alternatives',
-    '18.04' => '/usr/bin/update-alternatives',
-  },
-  'default' => '/usr/sbin/update-alternatives'
-)
+update_alternatives_bin = '/usr/bin/update-alternatives'
 
 execute 'set default system editor' do
   command "#{update_alternatives_bin} --set editor #{node['vim']['binary']}"
